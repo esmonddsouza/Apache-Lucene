@@ -14,10 +14,15 @@ Steps to run application
 Sample output of the program
 
 Successfully read arguments
+
 Documents fetched...
+
 Documents indexed...
+
 Queries fetched...
+
 Queries fired...
+
 Completed Successfully. Result file 'Result_28-02-2020@15-17' created and saved at result path.
 
 For this example {Result file name} = Result_28-02-2020@15-17
