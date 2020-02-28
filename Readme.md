@@ -59,8 +59,8 @@ Analyzer Options
 
 
 Similarity Options
-1. Classic Similarity /TFIDF Similarity 
+1. Classic Similarity / TFIDF Similarity 
 2. Boolean Similarity
-3. Multi Similarity (Boolean, Classic and BM25)		        
+3. Multi Similarity (Boolean + Classic + BM25)		        
 4. BM25 Similarity (1.2f, 0.75f)
 5. BM25 Similarity (1.2f, 0.95f)
