@@ -5,10 +5,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.analysis.core.StopAnalyzer;
+import org.apache.lucene.analysis.core.StopFilterFactory;
 import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
+import org.apache.lucene.analysis.en.EnglishMinimalStemFilterFactory;
+import org.apache.lucene.analysis.en.EnglishPossessiveFilterFactory;
+import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
+import org.apache.lucene.analysis.standard.ClassicTokenizerFactory;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -64,10 +70,10 @@ public class App {
 
 	        switch(selectedAnalyzerType) {
 		        case 1:
-					analyzer = new WhitespaceAnalyzer();
+					analyzer = new WhitespaceAnalyzer(); //0.2524  0.1868
 					break;
 		        case 2:
-					analyzer = new EnglishAnalyzer(); //0.3601
+					analyzer = new EnglishAnalyzer(UTILHelper.createStopWordsCharArray()); //0.3601 BM25 0.3697
 					break;
 		        case 3:
 					analyzer = new SimpleAnalyzer();
@@ -102,6 +108,9 @@ public class App {
 					break;
 		        case 4:
 		        	similarity = new BM25Similarity(1.2f, 0.75f); //default values
+					break;
+		        case 5:
+		        	similarity = new BM25Similarity(1.2f, 0.95f); 
 					break;
 				default:
 					similarity = new BM25Similarity(1.2f, 0.95f); //0.3388
@@ -147,9 +156,12 @@ public class App {
 	
 	private static Analyzer createCustomAnalyzer() throws IOException {
         return CustomAnalyzer.builder()
-                .withTokenizer("whitespace")
-                .addTokenFilter("lowercase")
-                .addTokenFilter("standard")
+                .withTokenizer(ClassicTokenizerFactory.class)
+                .addTokenFilter(EnglishPossessiveFilterFactory.class)
+                .addTokenFilter(LowerCaseFilterFactory.class)
+    			.addTokenFilter(StopFilterFactory.class)
+    			.addTokenFilter(SnowballPorterFilterFactory.class)
+    			.addTokenFilter(EnglishMinimalStemFilterFactory.class)
                 .build();
     }
 }

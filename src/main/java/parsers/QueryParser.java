@@ -30,10 +30,10 @@ public class QueryParser {
 		List<Query> queries = new ArrayList<>();
 		Integer queryCount = 0;
 		HashMap<String,Float> boosts = new HashMap<String,Float>();
-		boosts.put("title", 5f);
+		boosts.put("title", 0.30f);
 		//boosts.put("author", 1f);
-		boosts.put("content", 10f);
-		this.multiFieldQP = new MultiFieldQueryParser(new String[] {"title","author","content"}, analyzer, boosts);		
+		boosts.put("content", 0.70f);
+		this.multiFieldQP = new MultiFieldQueryParser(new String[] {"title","content"}, analyzer, boosts);		
 		
 		String queryId = "";
 		StringBuilder queryStr = new StringBuilder();
