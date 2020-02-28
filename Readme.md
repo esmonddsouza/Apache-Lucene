@@ -3,7 +3,7 @@
 
 Steps to run application
 
-1. Go to the project dir
+1. Go to the project dir - cd ApacheLucene/Apache-Lucene
 2. Inside the directory run the query - mvn clean
 3. Then run - mvn install (target folder will be created)
 4. Then run the command - mvn exec:java -Dexec.mainClass="luceneSearchEngine.App" -Dexec.args="src/main/resources/cran/cran.all.1400 src/main/outputData/index src/main/resources/cran/cran.qry src/main/outputData/results 2 5 10000" (2 - English Analyzer, 5 - BM25 Similarity, 10000 - hits per page). You may change the values to check other analysers and similarity scorers
